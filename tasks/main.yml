@@ -30,6 +30,11 @@
 
 - name: Wordpresss | Change ownership of installation directory
   file: path={{wp_install_dir}} owner=www-data group=www-data mode=775 state=directory recurse=yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: Wordpresss | Change ownership of installation directory
+  file: path={{wp_install_dir}} owner=nginx group=nginx mode=775 state=directory recurse=yes
+  when: ansible_pkg_mgr == "yum"
 
 - name: Wordpresss | Change ownership of uploads directory on debian system
   file: path={{wp_install_dir}}/wp-content/uploads/ owner=www-data group=www-data state=directory recurse=yes
