@@ -1,41 +1,17 @@
 ---
 galaxy_info:
-  author: darthwade
-  description: Wordpress
-  company: "7ninjas.com"
+  author: chusiang
+  description: Wordpress, fork from https://galaxy.ansible.com/darthwade/wordpress .
+  company: "drx.tw"
   license: "MIT"
-  min_ansible_version: 1.4
+  min_ansible_version: 1.9
   platforms:
   - name: EL
     versions:
-    - all
-  - name: GenericUNIX
-    versions:
-    - all
-  - name: Fedora
-    versions:
-    - all
-  - name: opensuse
-    versions:
-    - all
-  - name: GenericBSD
-    versions:
-    - all
-  - name: FreeBSD
-    versions:
-    - all
+    - 7
   - name: Ubuntu
     versions:
-    - all
-  - name: SLES
-    versions:
-    - all
-  - name: GenericLinux
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
+    - trusty
   categories:
   - development
   - web
