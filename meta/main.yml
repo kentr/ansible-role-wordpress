@@ -1,7 +1,8 @@
 ---
+
 galaxy_info:
   author: chusiang
-  description: Wordpress, fork from https://galaxy.ansible.com/darthwade/wordpress .
+  description: Deploy WordPress for Ubuntu and CentOS. (fork from https://galaxy.ansible.com/darthwade/WordPress)
   company: "drx.tw"
   license: "MIT"
   min_ansible_version: 1.9
@@ -15,6 +16,7 @@ galaxy_info:
   galaxy_tags:
   - development
   - web
+  - cms
 
 dependencies: [] 
 
