@@ -13,6 +13,10 @@
     path: "{{wp_install_dir}}"
     state: directory
 
+# Deploy WordPress if configured.
+- include: tasks/deploy.yml
+  when: wp_deploy
+
 - name: Get information about index.php.
   stat:
     path: "{{ wp_install_dir }}/index.php"
