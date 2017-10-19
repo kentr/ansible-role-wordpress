@@ -58,8 +58,8 @@
 - name: Change ownership of installation directory
   file:
     path: "{{wp_install_dir}}"
-    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupal_core_owner) }}"
-    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupal_core_owner) }}"
+    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
+    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
     mode: 0775
     state: directory
     recurse: yes
@@ -67,7 +67,7 @@
 - name: Change ownership of uploads directory
   file:
     path: "{{wp_install_dir}}/wp-content/uploads/"
-    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupal_core_owner) }}"
+    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
     group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupalvm_webserver_user) }}"
     state: directory
     recurse: yes
