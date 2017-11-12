@@ -20,14 +20,14 @@
 - name: Get information about index.php.
   stat:
     path: "{{ wp_install_dir }}/index.php"
-  register: index
+  register: index_file
 
 - name: Download {{wp_version}} to {{ workspace }}.
   get_url:
     url: "http://wordpress.org/wordpress-{{wp_version}}.tar.gz"
     force: no
     dest: "{{ workspace }}/wordpress-{{wp_version}}.tar.gz"
-  when: install_wordpress | default(False) and not index.stat.exists
+  when: install_wordpress | default(False) and not index_file.stat.exists
 
 - name: Extract archive.
   unarchive:
@@ -36,7 +36,7 @@
     copy: no
     extra_opts: "--no-same-owner"
   creates: "{{ workspace }}/wordpress/index.php"
-  when: install_wordpress | default(False) and not index.stat.exists
+  when: install_wordpress | default(False) and not index_file.stat.exists
 
 - name: Move extracted files to {{wp_install_dir}}.
   synchronize:
