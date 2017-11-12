@@ -26,8 +26,8 @@
   set_fact:
     wordpress_site_exists: "{{ index_file.stat.exists|default(false) }}"
 
-- name: Install WordPress if configured.
-  include: tasks/install-site.yml
+- name: Download WordPress if configured.
+  include: tasks/download-wordpress.yml
   when: install_wordpress | default(False) and not wordpress_site_exists
 
 - name: Fetch random salts for wp-config.php
