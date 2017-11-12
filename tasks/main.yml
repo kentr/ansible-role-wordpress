@@ -13,8 +13,8 @@
     path: "{{wp_install_dir}}"
     state: directory
 
-# Deploy WordPress if configured.
-- include: tasks/deploy.yml
+- name: Deploy WordPress if configured.
+  include: tasks/deploy.yml
   when: wp_deploy
 
 - name: Get information about index.php.
@@ -22,33 +22,35 @@
     path: "{{ wp_install_dir }}/index.php"
   register: index
 
-- name: Download {{wp_version}} to /tmp
+- name: Download {{wp_version}} to {{ workspace }}.
   get_url:
     url: "http://wordpress.org/wordpress-{{wp_version}}.tar.gz"
     force: no
-    dest: "/tmp/wordpress-{{wp_version}}.tar.gz"
-  # TODO sha256sum="{{ wp_sha256sum }}"
-  creates: "{{ wp_install_dir }}/index.php"
+    dest: "{{ workspace }}/wordpress-{{wp_version}}.tar.gz"
   when: install_wordpress | default(False) and not index.stat.exists
 
-- name: Extract archive
+- name: Extract archive.
   unarchive:
-    src: "/tmp/wordpress-{{wp_version}}.tar.gz"
-    dest: /tmp
+    src: "{{ workspace }}/wordpress-{{wp_version}}.tar.gz"
+    dest: "{{ workspace }}"
     copy: no
+    extra_opts: "--no-same-owner"
+  creates: "{{ workspace }}/wordpress/index.php"
+  when: install_wordpress | default(False) and not index.stat.exists
+
+- name: Move extracted files to {{wp_install_dir}}.
+  synchronize:
+    src: "{{ workspace }}/wordpress/"
+    dest: "{{ wp_install_dir }}/"
+    archive: True
+  delegate_to: "{{ inventory_hostname }}"
   creates: "{{ wp_install_dir }}/index.php"
-  when: install_wordpress | default(False)
 
-- name: Move extracted directory to {{wp_install_dir}}
-  command: "/bin/mv /tmp/wordpress {{wp_install_dir}}"
-  creates: "{{ wp_install_dir }}"
-  when: install_wordpress | default(False) and not index.stat.exists
-
-- name: Remove wordpress-{{wp_version}}.tar.gz
-  file:
-    path: "/tmp/wordpress-{{wp_version}}.tar.gz"
-    state: absent
-  when: install_wordpress | default(False) and not index.stat.exists
+#- name: Remove wordpress-{{wp_version}}.tar.gz
+#  file:
+#    path: "{{ workspace }}/wordpress-{{wp_version}}.tar.gz"
+#    state: absent
+#  when: install_wordpress | default(False)
 
 - name: Fetch random salts for wp-config.php
   command: curl https://api.wordpress.org/secret-key/1.1/salt/

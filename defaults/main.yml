@@ -31,3 +31,5 @@ wp_deploy_version: master
 wp_deploy_update: true
 wp_deploy_dir: "{{ wp_install_dir }}"
 wp_deploy_accept_hostkey: no
+
+workspace: /tmp
