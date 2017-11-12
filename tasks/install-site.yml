@@ -1,6 +1,6 @@
 ---
 
-- name: Check if WordPress database is already installed.
+- name: Install site with `wp-cli`.
   become: no
   command: |
     wp \
