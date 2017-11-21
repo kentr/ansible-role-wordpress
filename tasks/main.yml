@@ -59,3 +59,7 @@
     group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupalvm_webserver_user) }}"
     state: directory
     recurse: yes
+
+- name: Install dummy data if configured.
+  include: tasks/install-dummy-data.yml
+  when: wp_install_dummy_data
