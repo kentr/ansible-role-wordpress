@@ -38,4 +38,7 @@ wp_deploy_update: true
 wp_deploy_dir: "{{ wp_install_dir }}"
 wp_deploy_accept_hostkey: no
 
+wp_core_owner: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
+wp_core_group: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
+
 workspace: /tmp
