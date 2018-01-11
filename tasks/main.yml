@@ -30,10 +30,10 @@
   include: tasks/download-wordpress.yml
   when: install_wordpress | default(False) and not wordpress_site_exists
 
-# TODO: Add 'creates' to keep this from running repeatedly
 - name: Fetch random salts for wp-config.php
   command: curl https://api.wordpress.org/secret-key/1.1/salt/
   register: 'wp_salt'
+  creates: "{{ wp_install_dir }}/wp-config.php"
 
 - name: Copy wp-config.php file
   template:
