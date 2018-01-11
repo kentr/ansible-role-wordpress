@@ -40,20 +40,11 @@
     src: wp-config.php.j2
     dest: "{{wp_install_dir}}/wp-config.php"
 
-- name: Change ownership of installation directory
+- name: Change ownership of installation directory.
   file:
     path: "{{wp_install_dir}}"
     owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
-    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupalvm_webserver_user) }}"
-    mode: 0775
-    state: directory
-    recurse: yes
-
-- name: Change ownership of uploads directory
-  file:
-    path: "{{wp_install_dir}}/wp-content/uploads/"
-    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
-    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, drupalvm_webserver_user) }}"
+    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_group) }}"
     state: directory
     recurse: yes
 
