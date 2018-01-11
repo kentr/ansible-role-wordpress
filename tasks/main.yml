@@ -4,11 +4,11 @@
     path: /vagrant
   register: vagrant_directory
 
-- name: Create or restore site database
+- name: Create or restore site database.
   include: mysql.yml
   when: wp_mysql_enable
 
-- name: Ensure that installation directory exists
+- name: Ensure that installation directory exists.
   file:
     path: "{{wp_install_dir}}"
     state: directory
@@ -30,12 +30,12 @@
   include: tasks/download-wordpress.yml
   when: install_wordpress | default(False) and not wordpress_site_exists
 
-- name: Fetch random salts for wp-config.php
+- name: Fetch random salts for `wp-config.php`l
   command: curl https://api.wordpress.org/secret-key/1.1/salt/
   register: 'wp_salt'
   creates: "{{ wp_install_dir }}/wp-config.php"
 
-- name: Copy wp-config.php file
+- name: Copy `wp-config.php` file.
   template:
     src: wp-config.php.j2
     dest: "{{wp_install_dir}}/wp-config.php"
