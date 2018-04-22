@@ -10,7 +10,7 @@
 
 - name: Ensure that installation directory exists.
   file:
-    path: "{{wp_install_dir}}"
+    path: "{{ wp_install_dir }}"
     state: directory
 
 - name: Deploy WordPress if configured.
@@ -61,11 +61,11 @@
 - name: Copy `wp-config.php` file.
   template:
     src: wp-config.php.j2
-    dest: "{{wp_install_dir}}/wp-config.php"
+    dest: "{{ wp_install_dir }}/wp-config.php"
 
 - name: Change ownership of installation directory.
   file:
-    path: "{{wp_install_dir}}"
+    path: "{{ wp_install_dir }}"
     owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
     group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_group) }}"
     state: directory
