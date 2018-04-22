@@ -47,6 +47,17 @@
       </Files>
   when: wp_debug_log
 
+- name: Block access to `wp-config.php`.
+  blockinfile:
+    path: "{{ wp_install_dir }}/wp-content/.htaccess"
+    create: yes
+    mode: u=r,g=r,o=
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: Block access to `wp-config.php`"
+    block: |
+      <Files "wp-config.php">
+         deny from all
+      </Files>
+
 - name: Copy `wp-config.php` file.
   template:
     src: wp-config.php.j2
