@@ -30,7 +30,7 @@
   include: tasks/download-wordpress.yml
   when: install_wordpress | default(False) and not wordpress_site_exists
 
-- name: Fetch random salts for `wp-config.php`l
+- name: Fetch random salts for `wp-config.php`.
   command: curl https://api.wordpress.org/secret-key/1.1/salt/
   register: 'wp_salt'
   creates: "{{ wp_install_dir }}/wp-config.php"
