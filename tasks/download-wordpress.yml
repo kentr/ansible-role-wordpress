@@ -21,9 +21,3 @@
     archive: True
   delegate_to: "{{ inventory_hostname }}"
   creates: "{{ wp_install_dir }}/index.php"
-
-#- name: Remove wordpress-{{ wp_version }}.tar.gz
-#  file:
-#    path: "{{ workspace }}/wordpress-{{ wp_version }}.tar.gz"
-#    state: absent
-#  when: install_wordpress | default(False)
