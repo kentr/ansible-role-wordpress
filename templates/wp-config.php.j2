@@ -49,6 +49,10 @@ define ('WPLANG', '{{ wp_lang }}');
  * prefix. Only numbers, letters, and underscores please!
  */
 $table_prefix  = '{{ wp_table_prefix }}';
+
+{% if wp_add_siteurl_to_wp_config | default(False) and wp_siteurl is defined %}
+define( 'WP_SITEURL', '{{ wp_siteurl }}' );
+{% endif %}
 /**
  * For developers: WordPress debugging mode.
  *
