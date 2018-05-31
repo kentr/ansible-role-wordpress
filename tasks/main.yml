@@ -80,11 +80,6 @@
     group: "{{ wp_core_group }}"
     state: directory
     recurse: yes
-  # If `group_name` == "vagrant_group", we assume this an NFS or SSHFS mount
-  # under DrupalVM.
-  # See drupalvm.www/tasks/main.yml
-  # TODO: Correct this to be independent of DrupalVM.
-  when: wp_install_dir_check.stat.gr_name != 'vagrant_group'
 
 - name: Install WordPress site if configured.
   include_tasks: install-site.yml

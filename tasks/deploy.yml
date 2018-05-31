@@ -4,8 +4,8 @@
     path: "{{ wp_deploy_dir }}"
     state: directory
     mode: 0775
-    owner: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
-    group: "{{ (vagrant_directory.stat.gr_name == 'vagrant_group') | ternary(omit, wp_core_owner) }}"
+    owner: "{{ wp_core_owner }}"
+    group: "{{ wp_core_group }}"
 
 - name: Check out WordPress to the docroot.
   git:
