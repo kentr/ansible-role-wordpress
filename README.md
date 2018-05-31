@@ -45,6 +45,8 @@ wp_admin_email: ''
 wp_site_title: 'My Great WordPress Site'
 wp_siteurl: undefined
 
+wp_install_dummy_data: False
+
 wp_fs_method: 'direct'
 wp_lang: ''
 
