@@ -7,7 +7,7 @@
   register: wp_install_dir_info
 
 - name: Create or restore site database.
-  include: mysql.yml
+  include_tasks: mysql.yml
   when: wp_mysql_enable
 
 - name: Ensure that installation directory exists.
@@ -16,7 +16,7 @@
     state: directory
 
 - name: Deploy WordPress if configured.
-  include: tasks/deploy.yml
+  include_tasks: tasks/deploy.yml
   when: wp_deploy
 
 - name: Get information about index.php.
@@ -29,7 +29,7 @@
     wordpress_site_exists: "{{ index_file.stat.exists|default(false) }}"
 
 - name: Download WordPress if configured.
-  include: tasks/download-wordpress.yml
+  include_tasks: tasks/download-wordpress.yml
   when: install_wordpress | default(False) and not wordpress_site_exists
 
 - name: Fetch random salts for `wp-config.php`.
@@ -79,9 +79,9 @@
   when: wp_install_dir_info.stat.gr_name != 'vagrant_group'
 
 - name: Install WordPress site if configured.
-  include: tasks/install-site.yml
+  include_tasks: tasks/install-site.yml
   when: wp_install_site
 
 - name: Install dummy data if configured.
-  include: tasks/install-dummy-data.yml
+  include_tasks: tasks/install-dummy-data.yml
   when: wp_install_dummy_data
