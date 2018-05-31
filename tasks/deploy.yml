@@ -15,6 +15,12 @@
     force: yes
     dest: "{{ wp_deploy_dir }}"
     accept_hostkey: "{{ wp_deploy_accept_hostkey }}"
+  # Add TMP directories to environment to work around
+  # https://github.com/ansible/ansible/issues/30064
+  environment:
+    TMPDIR: "{{ ansible_env.HOME }}/.ansible/tmp"
+    TMP: "{{ ansible_env.HOME }}/.ansible/tmp"
+    TEMP: "{{ ansible_env.HOME }}/.ansible/tmp"
   register: wp_deploy_repo_updated
   notify: clear opcache
   become: no
