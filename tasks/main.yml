@@ -11,9 +11,17 @@
 
 - name: Ensure that installation directory exists.
   block:
+    # If it's a link, check target.
+    - stat:
+        path: "{{ wp_install_dir_check.stat.lnk_source }}"
+        get_checksum: no
+      when: wp_install_dir_check.stat.exists and wp_install_dir_check.stat.islnk
+      register: wp_install_dir_target_check
+      failed_when: wp_install_dir_target_check is defined and not wp_install_dir_target_check.stat.isdir
     - file:
         path: "{{ wp_install_dir }}"
         state: directory
+      when: not wp_install_dir_check.stat.exists
 
 - name: Deploy WordPress if configured.
   include_tasks: deploy.yml
