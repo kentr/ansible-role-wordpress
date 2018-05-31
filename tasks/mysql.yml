@@ -1,6 +1,6 @@
 ---
 
-- name: Create database for each site
+- name: Create database for each site.
   mysql_db: >
     name={{ wp_db_name }}
     state=present
@@ -9,13 +9,13 @@
     login_password={{ wp_db_password }}
   when: wp_mysql_db_create
 
-- name: Copy saved database to server
+- name: Copy saved database to server.
   copy: >
     src={{ wp_database_backup }}
     dest=/tmp/{{ wp_site_name }}.sql.gz
   when: wp_mysql_site_restore_saved_db
 
-- name: Import saved database
+- name: Import saved database.
   mysql_db: >
     name={{ wp_db_name }}
     state=import
@@ -25,7 +25,7 @@
     login_password={{ wp_db_password }}
   when: wp_mysql_site_restore_saved_db
 
-- name: Create/assign database user to db and grant permissions
+- name: Create/assign database user to db and grant permissions.
   mysql_user: >
     name={{ wp_db_user }}
     password={{ wp_db_password }}
