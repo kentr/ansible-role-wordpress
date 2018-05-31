@@ -26,6 +26,7 @@ wp_lang: ''
 
 wp_mysql_enable: true
 wp_mysql_db_create: true
+wp_mysql_db_create_users: true
 wp_mysql_site_restore_saved_db: false
 wp_backup_local_path: "{{ playbook_dir }}/_private/backup"
 wp_database_backup: "{{ wp_backup_local_path }}/{{ wp_site_name }}.sql"

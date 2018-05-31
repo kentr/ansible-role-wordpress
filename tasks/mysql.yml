@@ -31,4 +31,4 @@
     password={{ wp_db_password }}
     priv='{{ wp_db_name }}.*:ALL'
     state=present
-  ignore_errors: yes
+  when: wp_mysql_db_create_users
