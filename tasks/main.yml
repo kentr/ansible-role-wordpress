@@ -71,6 +71,8 @@
       </Files>
 
 - name: Copy `wp-config.php` file.
+  # `no_log` is set to hide database credentials, salts, etc.
+  no_log: True
   template:
     src: wp-config.php.j2
     dest: "{{ wp_install_dir }}/wp-config.php"
