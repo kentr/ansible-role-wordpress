@@ -9,6 +9,7 @@
 
 - name: Check out WordPress to the docroot.
   git:
+    depth: "{{ wp_deploy_clone_depth | default(omit) }}"
     repo: "{{ wp_deploy_repo }}"
     version: "{{ wp_deploy_version }}"
     update: "{{ wp_deploy_update }}"
