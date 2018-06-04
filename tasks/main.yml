@@ -9,6 +9,10 @@
   include_tasks: mysql.yml
   when: wp_mysql_enable
 
+- name: Deploy WordPress if configured.
+  include_tasks: deploy.yml
+  when: wp_deploy
+
 - name: Ensure that installation directory exists.
   block:
     # If it's a link, check target.
@@ -24,10 +28,6 @@
         owner: "{{ wp_core_owner }}"
         group: "{{ wp_core_group }}"
       when: not wp_install_dir_check.stat.exists
-
-- name: Deploy WordPress if configured.
-  include_tasks: deploy.yml
-  when: wp_deploy
 
 - name: Get information about index.php.
   stat:
