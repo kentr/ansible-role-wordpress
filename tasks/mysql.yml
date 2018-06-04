@@ -37,6 +37,7 @@
         login_user: "{{ wp_db_user }}"
         state: import
         target: "{{ workspace }}/{{ wp_database_backup | basename }}"
+      register: wp_mysql_import_db_result
 
   always:
     - name: Remove temporary MySQL options file.
