@@ -44,8 +44,10 @@
 
 - name: Fetch random salts for `wp-config.php`.
   command: curl https://api.wordpress.org/secret-key/1.1/salt/
-  register: 'wp_salt'
   creates: "{{ wp_install_dir }}/wp-config.php"
+  # `no_log` is set to hide database credentials, salts, etc.
+  no_log: True
+  register: 'wp_salt'
 
 - name: Block access to `debug.log`.
   blockinfile:
