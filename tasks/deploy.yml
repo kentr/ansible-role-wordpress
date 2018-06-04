@@ -9,13 +9,13 @@
 
 - name: Check out WordPress to the docroot.
   git:
-    depth: "{{ wp_deploy_clone_depth | default(omit) }}"
-    repo: "{{ wp_deploy_repo }}"
-    version: "{{ wp_deploy_version }}"
-    update: "{{ wp_deploy_update }}"
-    force: yes
-    dest: "{{ wp_deploy_dir }}"
     accept_hostkey: "{{ wp_deploy_accept_hostkey }}"
+    depth: "{{ wp_deploy_clone_depth | default(omit) }}"
+    dest: "{{ wp_deploy_dir }}"
+    force: yes
+    repo: "{{ wp_deploy_repo }}"
+    update: "{{ wp_deploy_update }}"
+    version: "{{ wp_deploy_version }}"
   # Add TMP directories to environment to work around
   # https://github.com/ansible/ansible/issues/30064
   become: no
