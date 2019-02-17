@@ -34,7 +34,7 @@
     path: "{{ wp_install_dir }}/index.php"
   register: index_file
 
-- name: Define wordpress_site_exists.
+- name: Define `wordpress_site_exists`.
   set_fact:
     wordpress_site_exists: "{{ index_file.stat.exists|default(false) }}"
 
