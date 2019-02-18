@@ -6,6 +6,7 @@ import testinfra.utils.ansible_runner
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
+
 # Define fixture for dynamic ansible role variables.
 # @see https://github.com/philpep/testinfra/issues/345#issuecomment-409999558
 @pytest.fixture
@@ -23,20 +24,39 @@ def ansible_role_vars(host):
 
     return ansible_vars
 
+
 def test_wp_config_file_exists(host, ansible_role_vars):
     f = host.file(ansible_role_vars['wp_install_dir'] + '/wp-config.php')
 
     assert f.exists
+
 
 def test_wp_config_file_contains_salts(host, ansible_role_vars):
     f = host.file(ansible_role_vars['wp_install_dir'] + '/wp-config.php')
 
     assert f.contains("^define(\s*'AUTH_KEY'")
 
+
 def test_wp_config_file_contains_db_credentials(host, ansible_role_vars):
     f = host.file(ansible_role_vars['wp_install_dir'] + '/wp-config.php')
 
-    assert f.contains("^define('DB_NAME',\s*'" + ansible_role_vars['wp_db_name'] + "');")
-    assert f.contains("^define('DB_USER',\s*'" + ansible_role_vars['wp_db_user'] + "');")
-    assert f.contains("^define('DB_PASSWORD',\s*'" + ansible_role_vars['wp_db_password'] + "');")
-    assert f.contains("^define('DB_HOST',\s*'" + ansible_role_vars['wp_db_host'] + "');")
+    assert f.contains((
+        "^define('DB_NAME',\s*'"
+        + ansible_role_vars['wp_db_name']
+        + "');"
+        ))
+    assert f.contains((
+        "^define('DB_USER',\s*'"
+        + ansible_role_vars['wp_db_user']
+        + "');"
+        ))
+    assert f.contains((
+        "^define('DB_PASSWORD',\s*'"
+        + ansible_role_vars['wp_db_password']
+        + "');"
+        ))
+    assert f.contains((
+        "^define('DB_HOST',\s*'"
+        + ansible_role_vars['wp_db_host']
+        + "');"
+        ))
