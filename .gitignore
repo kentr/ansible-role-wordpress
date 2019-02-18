@@ -3,3 +3,6 @@
 !.git*
 !.travis.yml
 vagrant_*
+pytestdebug.log
+molecule/default/tests/__pycache__
+*.pyc
