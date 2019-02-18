@@ -14,7 +14,7 @@ apache_remove_default_vhost: true
 apache_vhosts:
   - servername: "{{ wp_domain }}"
     serveralias: "www.{{ wp_domain }}"
-    documentroot: "{{ wp_core_path }}"
+    documentroot: "{{ wp_install_dir }}"
     extra_parameters: |
           <FilesMatch \.php$>
             SetHandler "proxy:fcgi://{{ php_fpm_listen }}"
