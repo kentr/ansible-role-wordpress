@@ -1,0 +1,29 @@
+import os
+
+import pytest
+import testinfra.utils.ansible_runner
+
+testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
+
+# Define fixture for dynamic ansible role variables.
+# @see https://github.com/philpep/testinfra/issues/345#issuecomment-409999558
+@pytest.fixture
+def ansible_role_vars(host):
+    defaults_files = "file=../../defaults/main.yml name=role_defaults"
+    vars_files = "file=../../vars/main.yml name=role_vars"
+
+    ansible_vars = host.ansible(
+        "include_vars",
+        defaults_files)["ansible_facts"]["role_defaults"]
+
+    ansible_vars.update(host.ansible(
+        "include_vars",
+        vars_files)["ansible_facts"]["role_vars"])
+
+    return ansible_vars
+
+def test_wp_config_file(host, ansible_role_vars):
+    f = host.file(ansible_role_vars['wp_install_dir'] + '/wp-config.php')
+
+    assert f.exists
