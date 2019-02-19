@@ -62,17 +62,17 @@
     force: no
 
 - name: Fetch random salts for `wp-config.php`.
-  no_log: True
-  command: curl https://api.wordpress.org/secret-key/1.1/salt/
-  register: 'wp_salt'
-  when: not wp_config_check.stat.exists
+  uri:
+    url: https://api.wordpress.org/secret-key/1.1/salt/
+    return_content: true
+  register: wp_salt
+  failed_when: wp_salt.status != 200
 
 - name: Add salts to `wp-config.php`.
   blockinfile:
     path: "{{ wp_install_dir }}/wp-config.php"
-    block: "{{ wp_salt.stdout }}"
+    block: "{{ wp_salt.content }}"
     insertbefore: '\/\*\*#@-\*\/'
-  when: wp_salt.changed
 
 - name: Block access to `debug.log`.
   blockinfile:
