@@ -1,4 +1,6 @@
 ---
+wp_install_dir: "/home/vagrant/www"
+
 php_enable_webserver: false
 php_enablerepo: "remi,remi-php71"
 php_enable_php_fpm: true

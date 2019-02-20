@@ -28,8 +28,8 @@ wp_fs_method: 'direct'
 wp_lang: ''
 
 wp_mysql_enable: true
-wp_mysql_db_create: true
-wp_mysql_db_create_users: true
+wp_mysql_db_create: false
+wp_mysql_db_create_users: false
 wp_mysql_site_restore_saved_db: false
 wp_backup_local_path: "{{ playbook_dir }}/_private/backup"
 # Local path to database dump file.

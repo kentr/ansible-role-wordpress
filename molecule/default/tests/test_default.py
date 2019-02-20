@@ -11,8 +11,12 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 # @see https://github.com/philpep/testinfra/issues/345#issuecomment-409999558
 @pytest.fixture
 def ansible_role_vars(host):
+
+    # Include variables from ansible variable files.
+    # Paths are relative to the scenario directory.
     defaults_files = "file=../../defaults/main.yml name=role_defaults"
     vars_files = "file=../../vars/main.yml name=role_vars"
+    test_vars_files = "file=./test-vars.yml name=test_vars"
 
     ansible_vars = host.ansible(
         "include_vars",
@@ -21,6 +25,10 @@ def ansible_role_vars(host):
     ansible_vars.update(host.ansible(
         "include_vars",
         vars_files)["ansible_facts"]["role_vars"])
+
+    ansible_vars.update(host.ansible(
+        "include_vars",
+        test_vars_files)["ansible_facts"]["test_vars"])
 
     return ansible_vars
 
