@@ -8,8 +8,7 @@
     - ../resources/prepare-vars.yml
     # Scenario-specific variables & overrides for the setup
     # and testing of the role.
-    # @todo rename `test-vars.yml`
-    - test-vars.yml
+    - scenario-vars.yml
 
   roles:
     - role: kentr.wordpress

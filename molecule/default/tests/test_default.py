@@ -31,8 +31,8 @@ def ansible_role_vars(host):
 
     ansible_vars.update(host.ansible(
         "include_vars",
-        ("file=./test-vars.yml"
-         " name=test_vars"))["ansible_facts"]["test_vars"])
+        ("file=./scenario-vars.yml"
+         " name=scenario_vars"))["ansible_facts"]["scenario_vars"])
 
     return ansible_vars
 
