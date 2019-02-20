@@ -14,21 +14,28 @@ def ansible_role_vars(host):
 
     # Include variables from ansible variable files.
     # Paths are relative to the scenario directory.
-    defaults_files = "file=../../defaults/main.yml name=role_defaults"
-    vars_files = "file=../../vars/main.yml name=role_vars"
-    test_vars_files = "file=./test-vars.yml name=test_vars"
+    role_default_vars_attributes = ("file=../../defaults/main.yml"
+                                    " name=role_defaults")
+    role_vars_attributes = "file=../../vars/main.yml name=role_vars"
+    prepare_vars_attributes = ("file=../resources/prepare-vars.yml"
+                               " name=prepare_vars")
+    test_vars_attributes = "file=./test-vars.yml name=test_vars"
 
     ansible_vars = host.ansible(
         "include_vars",
-        defaults_files)["ansible_facts"]["role_defaults"]
+        role_default_vars_attributes)["ansible_facts"]["role_defaults"]
 
     ansible_vars.update(host.ansible(
         "include_vars",
-        vars_files)["ansible_facts"]["role_vars"])
+        role_vars_attributes)["ansible_facts"]["role_vars"])
 
     ansible_vars.update(host.ansible(
         "include_vars",
-        test_vars_files)["ansible_facts"]["test_vars"])
+        prepare_vars_attributes)["ansible_facts"]["prepare_vars"])
+
+    ansible_vars.update(host.ansible(
+        "include_vars",
+        test_vars_attributes)["ansible_facts"]["test_vars"])
 
     return ansible_vars
 

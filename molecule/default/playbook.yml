@@ -4,20 +4,13 @@
   become: true
 
   vars_files:
+    # General setup variables.
+    - ../resources/prepare-vars.yml
+    # Scenario-specific variables & overrides for the setup
+    # and testing of the role.
+    # @todo rename `test-vars.yml`
     - test-vars.yml
 
-  pre_tasks:
-    - import_tasks: test-setup.yml
-
   roles:
-    - name: geerlingguy.repo-remi
-      when: ansible_os_family == "RedHat"
-    - role: geerlingguy.repo-dotdeb
-      when: ansible_distribution == 'Debian'
-    - role: geerlingguy.apache
-    - role: geerlingguy.mysql
-    - role: geerlingguy.php
-    - role: geerlingguy.php-mysql
-    - role: geerlingguy.git
     - role: kentr.wordpress
       become: false
