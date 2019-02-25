@@ -3,8 +3,15 @@ sudo: required
 language: python
 services:
   - docker
+
+env:
+  global:
+    - ROLE_NAME: wordpress
+  matrix:
+    - MOLECULE_DISTRO: ubuntu1604
+
 install:
-  - pip install molecule
-  - pip install docker
+  - pip install molecule docker
+
 script:
   - molecule test
