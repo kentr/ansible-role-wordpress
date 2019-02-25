@@ -20,6 +20,5 @@ before_script:
   - mv ansible-role-$ROLE_NAME kentr.$ROLE_NAME
   - cd kentr.$ROLE_NAME
 
-
 script:
   - molecule test
