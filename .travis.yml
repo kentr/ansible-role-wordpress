@@ -22,4 +22,4 @@ before_script:
 
 
 script:
-  - molecule --debug test
+  - molecule test
