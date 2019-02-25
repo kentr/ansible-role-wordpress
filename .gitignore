@@ -2,6 +2,7 @@
 *~
 !.git*
 !.travis.yml
+!.yamllint
 vagrant_*
 pytestdebug.log
 molecule/default/tests/__pycache__
