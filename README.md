@@ -17,7 +17,7 @@ $ git clone https://github.com/kentr/wordpress.ansible.role.git
 ```
 
 ## Requirements & Dependencies
-- Ansible 1.4 or higher
+- Ansible 2.7 or higher
 - Curl
 
 ## Variables
