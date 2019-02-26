@@ -1,5 +1,7 @@
 # Ansible Role: WordPress
 
+[![Build Status](https://travis-ci.org/kentr/ansible-role-wordpress.svg?branch=master)](https://travis-ci.org/kentr/ansible-role-wordpress)
+
 Ansible role that installs and configures WordPress, forked from https://github.com/chusiang/wordpress.ansible.role.
 
 Features include:
