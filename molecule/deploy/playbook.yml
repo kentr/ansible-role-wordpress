@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars_files:
+    # General setup variables.
+    - ../resources/prepare-vars.yml
+    # Scenario-specific variables & overrides for the setup
+    # and testing of the role.
+    # @todo rename `test-vars.yml`
+    - scenario-vars.yml
+
+  roles:
+    - role: kentr.wordpress
+      become: false
