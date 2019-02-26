@@ -10,3 +10,5 @@
 # However, pytest doesn't know this, so we specify the
 # absolute path.
 wp_install_dir: "/root/www"
+
+wp_table_prefix: 'wp_table_prefix_test_'

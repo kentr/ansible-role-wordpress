@@ -72,3 +72,13 @@ def test_wp_config_file_contains_db_credentials(host, ansible_role_vars):
         + ansible_role_vars['wp_db_host']
         + "');"
         ))
+
+
+def test_wp_config_file_contains_db_table_prefix(host, ansible_role_vars):
+    f = host.file(ansible_role_vars['wp_install_dir'] + '/wp-config.php')
+
+    assert f.contains((
+        "^$table_prefix\s*=\s*'"
+        + ansible_role_vars['wp_table_prefix']
+        + "';"
+        ))
