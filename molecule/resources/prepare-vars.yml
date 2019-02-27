@@ -12,6 +12,11 @@ wp_deploy_dir: "/var/www/wordpress"
 # `wp_install_dir: "{{ wp_deploy_dir }}/web"`:
 wp_install_dir: "/var/www/wordpress/web"
 
+# Group to which WordPress files should be assigned.
+# Should be the same as the Apache user, which is "www-data" for Debian.
+# This will need to be revisited if different distros are tested.
+wp_core_group: "www-data"
+
 php_enable_webserver: false
 php_enablerepo: "remi,remi-php71"
 php_enable_php_fpm: true
