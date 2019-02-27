@@ -39,7 +39,15 @@ def ansible_role_vars(host):
 
 def test_index_exists(host, ansible_role_vars):
 
-    print ansible_role_vars['wp_install_dir']
     f = host.file(ansible_role_vars['wp_install_dir'] + '/index.php')
 
     assert f.exists
+
+
+# Functional test for successful deploy.
+def test_installed_site_home_page_title(host, ansible_role_vars):
+
+    # Test both that the home page loads at all, and that
+    # it contains the configured site title.
+    cmd = host.run('curl localhost')
+    assert '<title>' + ansible_role_vars['wp_site_title'] in cmd.stdout
