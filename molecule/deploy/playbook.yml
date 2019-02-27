@@ -13,6 +13,7 @@
   roles:
     # Reset apache vhosts per scenario variables.
     - role: geerlingguy.apache
+    - role: mychiara.wp-cli
 
     # Run the test role.
     - role: kentr.wordpress
