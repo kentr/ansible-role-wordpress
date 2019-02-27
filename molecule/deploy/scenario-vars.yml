@@ -8,11 +8,8 @@
 wp_deploy: true
 wp_deploy_repo: "https://github.com/kentr/wordpress-test.git"
 
-# For docker testing, Ansible runs as root.
-# Therefore, `~/www` maps to `/root/www`.
-# However, pytest doesn't know this, so we specify the
-# absolute path.
-wp_deploy_dir: "/root/wordpress"
+# To be consistent with `prepare-vars.yml`.
+wp_deploy_dir: "/var/www/wordpress"
 
 # The `web` directory is specific to the project's
 # file structure, as cloned from the repo.
@@ -21,7 +18,15 @@ wp_deploy_dir: "/root/wordpress"
 # then the `web` directory is within that clone.
 #
 # Note: The following was not working in the python test file:
-# `wp_install_dir: "{{ wp_deploy_dir }}/wordpress/web"`:
-wp_install_dir: "/root/wordpress/web"
+# `wp_install_dir: "{{ wp_deploy_dir }}/web"`:
+wp_install_dir: "/var/www/wordpress/web"
 
 wp_table_prefix: 'wp_table_prefix_test_'
+
+# Run the WordPress installation.
+wp_install_site: True
+wp_site_title: 'WordPress Deploy Test'
+wp_admin_email: "test@{{ wp_domain }}"
+
+# Allow WP-CLI to run as root in this scenario.
+wp_cli_allow_as_root: true
