@@ -2,6 +2,10 @@
 
 - name: Install site with `wp-cli`.
   become: no
+  # The `--allow-root` flag is currently required by the
+  # Docker driver tests, which run as `root`.  The default is
+  # `false` so that WP-CLI will complain by default if someone
+  # accidentally runs the role with `root` as the ansible user.
   command: |
     wp \
     --path={{ wp_install_dir }} \
@@ -10,8 +14,19 @@
     --admin_password={{ wp_admin_password }} \
     --admin_email={{ wp_admin_email }} \
     --title='{{ wp_site_title }}' \
+    {{ '--allow-root' if wp_cli_allow_as_root|default(false) else '' }} \
     core install
 
 - name: Update default plugins with `wp-cli`.
   become: no
-  command: "wp --path={{ wp_install_dir }} plugin update --all"
+  # The `--allow-root` flag is currently required by the
+  # Docker driver tests, which run as `root`.  The default is
+  # `false` so that WP-CLI will complain by default if someone
+  # accidentally runs the role with `root` as the ansible user.
+  command: |
+    wp \
+    --path={{ wp_install_dir }} \
+    {{ '--allow-root' if wp_cli_allow_as_root|default(false) else '' }} \
+    plugin \
+    update \
+    --all
