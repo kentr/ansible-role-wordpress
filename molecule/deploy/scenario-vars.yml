@@ -1,0 +1,27 @@
+---
+# This file contains role setup and test variables / overrides
+# that are specific to the scenario (if any).
+#
+# General setup variables that apply to all scenarios should go
+# in `molecule/resources/prepare-vars.yml`.
+
+wp_deploy: true
+wp_deploy_repo: "https://github.com/kentr/wordpress-test.git"
+
+# For docker testing, Ansible runs as root.
+# Therefore, `~/www` maps to `/root/www`.
+# However, pytest doesn't know this, so we specify the
+# absolute path.
+wp_deploy_dir: "/root/wordpress"
+
+# The `web` directory is specific to the project's
+# file structure, as cloned from the repo.
+#
+# The project should be cloned to `wp_deploy_dir`, and
+# then the `web` directory is within that clone.
+#
+# Note: The following was not working in the python test file:
+# `wp_install_dir: "{{ wp_deploy_dir }}/wordpress/web"`:
+wp_install_dir: "/root/wordpress/web"
+
+wp_table_prefix: 'wp_table_prefix_test_'
